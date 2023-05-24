@@ -8,18 +8,15 @@ screen.addshape(image)
 turtle.shape(image)
 
 data = pd.read_csv("50_states.csv")
+all_state = data.state.to_list()
+answer_state = screen.textinput(title="Please enter", prompt="Enter a state: ")
 
-
-while True:
-    select_state = screen.textinput(title="Please enter a state", prompt="Please guess a state: ")
-    state_data = data[data["state"] == select_state]
-    x_coordinate = state_data.values[0][1]
-    y_coordinate = state_data.values[0][2]
-    x_y_coordinate = (x_coordinate, y_coordinate)
-    # print(x_y_coordinate)
-    position = turtle.Turtle()
-    position.penup()
-    position.goto(x_y_coordinate)
-    position.write(state_data.values[0][0])
+if answer_state in all_state:
+    t = turtle.Turtle()
+    t.hideturtle()
+    t.penup()
+    state_data = data[data.state == answer_state]
+    t.goto(int(state_data.x), int(state_data.y))
+    t.write(answer_state)
 
 screen.exitonclick()
